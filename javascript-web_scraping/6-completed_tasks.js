@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
 const request = require('request');
-const url = process.argv[2] + '?completed=true';
+const url = process.argv[2];
 
 request(url, (err, res, body) => {
   if (err) {
@@ -9,7 +9,7 @@ request(url, (err, res, body) => {
     return;
   }
   const arr = [];
-  const tasks = JSON.parse(body);
+  const tasks = JSON.parse(body).filter(val => val.completed === true);
   tasks.forEach(function (task) {
     if (arr[task.userId - 1] == null) {
       arr[task.userId - 1] = 0;
